@@ -108,3 +108,4 @@ CakeLog::config('error', array(
 ));
 
 CakePlugin::load('Migrations');
+CakePlugin::load('DebugKit');

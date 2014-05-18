@@ -3,7 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * Grade Model
  *
- * @property School $School
+ * @property Schoolbranch $Schoolbranch
  */
 class Grade extends AppModel {
 
@@ -23,11 +23,11 @@ class Grade extends AppModel {
  * @var array
  */
 	public $hasAndBelongsToMany = array(
-		'School' => array(
-			'className' => 'School',
-			'joinTable' => 'schools_grades',
+		'Schoolbranch' => array(
+			'className' => 'Schoolbranch',
+			'joinTable' => 'schoolbranches_grades',
 			'foreignKey' => 'grade_id',
-			'associationForeignKey' => 'school_id',
+			'associationForeignKey' => 'schoolbranch_id',
 			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',

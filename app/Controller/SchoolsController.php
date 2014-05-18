@@ -10,7 +10,7 @@ class SchoolsController extends AppController {
     
     public $components = array('RequestHandler');
     
-    public $uses = array('School', 'District', 'Address', 'Institutionprovider');
+    public $uses = array('School', 'District', 'Address', 'Institutionprovider', 'Schooltype');
 
     /**
      * Scaffold
@@ -18,6 +18,24 @@ class SchoolsController extends AppController {
      * @var mixed
      */
     public $scaffold = 'admin';
+    
+    public function view($id = null) {
+        if (isset($this->request->query['popup'])) {
+            $this->layout = 'ajax';
+            $this->School->Behaviors->load('Containable');
+            $this->School->contain();
+            $options = array('conditions' => array('School.' . $this->School->primaryKey => $id));
+            $this->set('school', $this->School->find('first', $options));
+            $this->render('view_popup');
+            return;
+        }
+        $options = array('conditions' => array('School.' . $this->School->primaryKey => $id));
+        $this->set('school', $this->School->find('first', $options));
+    }
+    
+    public function view_popup($id = null) {
+        
+    }
     
     public function admin_view($id = null) {
         if (!$this->School->exists($id)) {
@@ -36,28 +54,23 @@ class SchoolsController extends AppController {
         if (!$this->request->is('post')) {
             return;
         }
+        $regions = array();
+        $addresses = array();
+        $schooltypes = array();
+        $bsns = array();
+        $privatId = $this->Institutionprovider->find('first', array('conditions' => array('description' => 'privat')))['Institutionprovider']['id'];
+        $oeffenId = $this->Institutionprovider->find('first', array('conditions' => array('description' => 'öffentlich')))['Institutionprovider']['id'];
+
         if (($fd = fopen($this->request->data['CSV']['submittedFile']['tmp_name'], 'r')) !== false) {
             //readFirstLine
             $csvHeaders = fgetcsv($fd);
        
             $countSchools = 0;
-            $regions = array();
-            $addresses = array();
-            $bsns = array();
-            $privatId = $this->Institutionprovider->find('first', array('conditions' => array('description' => 'privat')))['Institutionprovider']['id'];
-            $oeffenId = $this->Institutionprovider->find('first', array('conditions' => array('description' => 'öffentlich')))['Institutionprovider']['id'];
             
             while (($data = fgetcsv($fd)) !== false) {
                 $countSchools++;
                 $csvDict = $this->makeCsvDict($csvHeaders, $data);
-//                $data = array(
-//    'Article' => array('title' => 'My first article'),
-//    'Comment' => array(
-//        array('body' => 'Comment 1', 'user_id' => 1),
-//        array('body' => 'Comment 2', 'user_id' => 12),
-//        array('body' => 'Comment 3', 'user_id' => 40),
-//    ),
-//);
+
                 $bsn = $csvDict['BSN'];
                 
                 if (!isset($bsns[$bsn])) {
@@ -98,6 +111,18 @@ class SchoolsController extends AppController {
                     }
                     $bsns[$bsn]['address_id'] = $address['Address']['id'];
                 }
+                
+                if (!array_key_exists($csvDict['Schulart'], $schooltypes)) {
+                    $schoolType = $this->Schooltype->find('first', array('conditions' => array('name' => $csvDict['Schulart'])));
+                    if ($schoolType == false) {
+                        $this->Schooltype->create();
+                        $this->Schooltype->set('name', $csvDict['Schulart']);
+                        $schoolType = $this->Schooltype->save();
+                    }
+                    $schooltypes[$csvDict['Schulart']] = $schoolType['Schooltype']['id'];
+                }
+                
+                if (!array_key_exists($csvDict, $bsns))
                 
                 if (!array_key_exists('id', $bsns[$bsn])) {
                     $school = $this->School->find('first', array('conditions' => array('bsn' => $bsn)));

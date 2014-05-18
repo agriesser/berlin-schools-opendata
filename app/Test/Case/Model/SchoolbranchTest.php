@@ -15,16 +15,15 @@ class SchoolbranchTest extends CakeTestCase {
 	public $fixtures = array(
 		'app.schoolbranch',
 		'app.school',
-		'app.schooltype',
+		'app.schoolbranchtype',
 		'app.advancedclass',
 		'app.advancedclasses_schoolbranch',
 		'app.foreignlanguage',
 		'app.foreignlanguages_schoolbranch',
-		'app.schools_foreignlanguage',
 		'app.projectgroup',
 		'app.projectgroups_schoolbranch',
-		'app.specialactivity',
-		'app.schoolbranches_specialactivity'
+		'app.grade',
+		'app.schoolbranches_grade'
 	);
 
 /**

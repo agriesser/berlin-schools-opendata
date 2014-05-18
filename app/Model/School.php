@@ -5,11 +5,12 @@ App::uses('AppModel', 'Model');
  *
  * @property Institutionprovider $Institutionprovider
  * @property Address $Address
+ * @property Schooltype $Schooltype
  * @property Schoolbranch $Schoolbranch
  * @property Accessibilityequipment $Accessibilityequipment
  * @property Equipment $Equipment
  * @property Foreignlanguage $Foreignlanguage
- * @property Grade $Grade
+ * @property Specialactivity $Specialactivity
  * @property Staff $Staff
  * @property Subject $Subject
  */
@@ -41,6 +42,13 @@ class School extends AppModel {
 		'Address' => array(
 			'className' => 'Address',
 			'foreignKey' => 'address_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Schooltype' => array(
+			'className' => 'Schooltype',
+			'foreignKey' => 'schooltype_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -106,19 +114,6 @@ class School extends AppModel {
 			'joinTable' => 'schools_foreignlanguages',
 			'foreignKey' => 'school_id',
 			'associationForeignKey' => 'foreignlanguage_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		),
-		'Grade' => array(
-			'className' => 'Grade',
-			'joinTable' => 'schools_grades',
-			'foreignKey' => 'school_id',
-			'associationForeignKey' => 'grade_id',
 			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',

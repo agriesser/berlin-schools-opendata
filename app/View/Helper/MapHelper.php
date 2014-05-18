@@ -51,7 +51,7 @@ function init() {
 init();
             ';
         
-        $this->_View->append('initjs', $out);
+        //$this->_View->append('initjs', $out);
                 
         return $this->_View->element('map', array('id' => $id, 'class' => $class, 'style' => $style));
     }

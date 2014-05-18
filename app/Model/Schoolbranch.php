@@ -4,11 +4,11 @@ App::uses('AppModel', 'Model');
  * Schoolbranch Model
  *
  * @property School $School
- * @property Schooltype $Schooltype
+ * @property Schoolbranchtype $Schoolbranchtype
  * @property Advancedclass $Advancedclass
  * @property Foreignlanguage $Foreignlanguage
  * @property Projectgroup $Projectgroup
- * @property Specialactivity $Specialactivity
+ * @property Grade $Grade
  */
 class Schoolbranch extends AppModel {
 
@@ -17,7 +17,7 @@ class Schoolbranch extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'duallearningdecription';
+	public $displayField = 'id';
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -35,9 +35,9 @@ class Schoolbranch extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Schooltype' => array(
-			'className' => 'Schooltype',
-			'foreignKey' => 'schooltype_id',
+		'Schoolbranchtype' => array(
+			'className' => 'Schoolbranchtype',
+			'foreignKey' => 'schoolbranchtype_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -89,11 +89,11 @@ class Schoolbranch extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 		),
-		'Specialactivity' => array(
-			'className' => 'Specialactivity',
-			'joinTable' => 'schoolbranches_specialactivities',
+		'Grade' => array(
+			'className' => 'Grade',
+			'joinTable' => 'schoolbranches_grades',
 			'foreignKey' => 'schoolbranch_id',
-			'associationForeignKey' => 'specialactivity_id',
+			'associationForeignKey' => 'grade_id',
 			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',

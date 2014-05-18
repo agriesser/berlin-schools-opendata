@@ -3,7 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * Specialactivity Model
  *
- * @property Schoolbranch $Schoolbranch
+ * @property School $School
  */
 class Specialactivity extends AppModel {
 
@@ -23,9 +23,9 @@ class Specialactivity extends AppModel {
  * @var array
  */
 	public $hasAndBelongsToMany = array(
-		'Schoolbranch' => array(
+		'School' => array(
 			'className' => 'Schoolbranch',
-			'joinTable' => 'schoolbranches_specialactivities',
+			'joinTable' => 'schools_specialactivities',
 			'foreignKey' => 'specialactivity_id',
 			'associationForeignKey' => 'schoolbranch_id',
 			'unique' => 'keepExisting',
