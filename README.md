@@ -1,3 +1,6 @@
+*The project has moved to:* https://github.com/Markush2010/berlin-school-data
+
+
 Initiative 2.0 Berliner Schulen OpenData Project
 =======================
 
